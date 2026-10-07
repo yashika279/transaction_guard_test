@@ -53,8 +53,14 @@ group :development, :test do
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
 
-  gem "transaction_guard", path: "../transaction_guard"
+  # Local sibling path for day-to-day gem work; GitHub source for CI.
+  if File.directory?(File.expand_path("../transaction_guard", __dir__))
+    gem "transaction_guard", path: "../transaction_guard"
+  else
+    gem "transaction_guard", github: "yashika279/transaction_guard"
+  end
 end
+
 
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
